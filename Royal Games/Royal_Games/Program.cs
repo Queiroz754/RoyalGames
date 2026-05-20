@@ -7,6 +7,8 @@ using Royal_Games.Applications.Services;
 using Royal_Games.Contexts;
 using Royal_Games.Interfaces;
 using Royal_Games.Repositories;
+using RoyalGames.Applications.Services;
+using RoyalGames.Repositories;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +59,18 @@ builder.Services.AddScoped<UsuarioService>();
 // Jogo
 builder.Services.AddScoped<IJogoRepository, JogoRepository>();
 builder.Services.AddScoped<JogoService>();
+
+// Genero
+builder.Services.AddScoped<IGeneroRepository, GeneroRepository>();
+builder.Services.AddScoped<GeneroService>();
+
+// Plataforma
+builder.Services.AddScoped<IPlataformaRepository, PlataformaRepository>();
+builder.Services.AddScoped<PlataformaService>();
+
+// Classificacao
+builder.Services.AddScoped<IClassificacaoIndicativaRepository, ClassificacaoIndicativaRepository>();
+builder.Services.AddScoped<ClassificacaoIndicativaService>();
 
 // LogAlteracaoJogo
 builder.Services.AddScoped<ILogAlteracaoJogoRepository, LogAlteracaoJogoRepository>();

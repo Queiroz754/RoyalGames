@@ -30,6 +30,18 @@ CREATE TABLE Genero(
 );
 GO
 
+CREATE TABLE ClassificacaoIndicativa(
+	ClassificacaoIndicativaID INT PRIMARY KEY IDENTITY,
+	Nome VARCHAR (50) NOT NULL
+);
+GO
+
+CREATE TABLE Plataforma(
+	PlataformaID INT PRIMARY KEY IDENTITY,
+	Nome VARCHAR (50) NOT NULL
+);
+GO
+
 CREATE TABLE JogoGenero(
 	JogoID INT NOT NULL,
 	GeneroID INT NOT NULL,	
@@ -38,6 +50,28 @@ CREATE TABLE JogoGenero(
 		REFERENCES Jogo(JogoID) ON DELETE CASCADE,
 	CONSTRAINT FK_JogoGenero_Genero FOREIGN KEY (GeneroID) 
 		REFERENCES Genero(GeneroID) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE JogoPlataforma(
+	JogoID INT NOT NULL,
+	PlataformaID INT NOT NULL,	
+	CONSTRAINT PK_JogoPlataforma PRIMARY KEY (JogoID, PlataformaID),
+	CONSTRAINT FK_JogoPlataforma_Jogo FOREIGN KEY (JogoID) 
+		REFERENCES Jogo(JogoID) ON DELETE CASCADE,
+	CONSTRAINT FK_JogoPlataforma_Plataforma FOREIGN KEY (PlataformaID) 
+		REFERENCES Plataforma(PlataformaID) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE JogoClassificacaoIndicativa(
+	JogoID INT NOT NULL,
+	ClassificacaoIndicativaID INT NOT NULL,	
+	CONSTRAINT PK_JogoClassificacaoIndicativa PRIMARY KEY (JogoID, ClassificacaoIndicativaID),
+	CONSTRAINT FK_JogoClassificacaoIndicativa_Jogo FOREIGN KEY (JogoID) 
+		REFERENCES Jogo(JogoID) ON DELETE CASCADE,
+	CONSTRAINT FK_JogoClassificacaoIndicativa_ClassificacaoIndicativa FOREIGN KEY (ClassificacaoIndicativaID) 
+		REFERENCES ClassificacaoIndicativa(ClassificacaoIndicativaID) ON DELETE CASCADE
 );
 GO
 
@@ -115,7 +149,7 @@ GO
 
 INSERT INTO Genero (Nome)
 VALUES
-('Ação'),
+('AÃ§Ã£o'),
 ('RPG'),
 ('Multiplayer');
 
@@ -123,8 +157,8 @@ GO
 
 INSERT INTO Jogo (Nome, Preco, Descricao, Imagem, UsuarioID)
 VALUES
-('Shadow Blade', 59.90, 'Jogo de ação com combates rápidos e ambientação sombria.', CONVERT(VARBINARY(MAX), 'imagem aleatoria'), 1),
-('Legends of Etheria', 79.90, 'RPG de mundo aberto com história épica e escolhas que afetam o final.', CONVERT(VARBINARY(MAX), 'imagem aleatoria'), 1),
+('Shadow Blade', 59.90, 'Jogo de aï¿½ï¿½o com combates rï¿½pidos e ambientaï¿½ï¿½o sombria.', CONVERT(VARBINARY(MAX), 'imagem aleatoria'), 1),
+('Legends of Etheria', 79.90, 'RPG de mundo aberto com histï¿½ria ï¿½pica e escolhas que afetam o final.', CONVERT(VARBINARY(MAX), 'imagem aleatoria'), 1),
 ('Pixel Racers Online', 39.90, 'Jogo de corrida arcade com modo multiplayer online.', CONVERT(VARBINARY(MAX), 'imagem aleatoria'), 1);
 
 GO
@@ -143,7 +177,7 @@ GO
 
 INSERT INTO Promocao (Nome, DataExpiracao)
 VALUES
-('Promoção Semana Gamer', '2026-03-01 23:59:59'),
+('Promoï¿½ï¿½o Semana Gamer', '2026-03-01 23:59:59'),
 ('Oferta Multiplayer Madness', '2026-02-20 23:59:59');
 
 GO
